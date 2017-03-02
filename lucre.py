@@ -41,7 +41,7 @@ def transact(starting_wealth, amount, exchange_rate, transaction_type):
         if starting_wealth[currency] + change < 0:
             if currency == 'Gold':
                 print("You can't afford it!\n")
-                input("Press any key to feel poor.")
+                input("Press any key to feel poor.\n")
             else:
                 tier_above = COINS.index(currency) - 1
 
@@ -52,6 +52,7 @@ def transact(starting_wealth, amount, exchange_rate, transaction_type):
                 while abs(change) > starting_wealth[currency]:
                     if tier_above < 0:
                         print("You can't afford it!")
+                        input("Press any key to feel poor.\n")
                         starting_wealth = orig_wealth
                         return starting_wealth
                     if starting_wealth[COINS[tier_above]] > 0:
