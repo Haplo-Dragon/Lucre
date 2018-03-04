@@ -14,6 +14,9 @@ for coin_type in sorted(wealth.keys()):
     if coin_type is not 'Gold':
         exchange[coin_type] = int(input("How many %s pieces in 1 gold piece?\n" % coin_type))
 
+def feelPoor():
+    print("You can't afford it!\n")
+    input("Press any key to feel poor.\n")
 
 def transact(starting_wealth, amount, exchange_rate, transaction_type):
     # Form a list of tuples by pairing coin types and regex letters one to one - ('Gold', '[g]'), ('Silver', '[s]') etc.
@@ -40,8 +43,7 @@ def transact(starting_wealth, amount, exchange_rate, transaction_type):
 
         if starting_wealth[currency] + change < 0:
             if currency == 'Gold':
-                print("You can't afford it!\n")
-                input("Press any key to feel poor.\n")
+                feelPoor()
             else:
                 tier_above = COINS.index(currency) - 1
 
@@ -51,8 +53,7 @@ def transact(starting_wealth, amount, exchange_rate, transaction_type):
 
                 while abs(change) > starting_wealth[currency]:
                     if tier_above < 0:
-                        print("You can't afford it!")
-                        input("Press any key to feel poor.\n")
+                        feelPoor()
                         starting_wealth = orig_wealth
                         return starting_wealth
                     if starting_wealth[COINS[tier_above]] > 0:
@@ -66,6 +67,8 @@ def transact(starting_wealth, amount, exchange_rate, transaction_type):
             starting_wealth[currency] += change
 
     return starting_wealth
+
+
 
 
 if __name__ == "__main__":
